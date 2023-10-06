@@ -1,0 +1,192 @@
+Ini kalau sudah Optimal :
+untuk Build :
+npm run build
+npm run start
+
+
+2. Konsep Pages untuk Routing dan Layout :
+di folder src/pages : untuk otomatis jadi routing
+folder pages ini sudah otomatis menjadi routing.
+kita langsung bkin folder aja teknologi NextJS MANTAB ENGGA RIBET.
+
+3. Membuat folder shop untuk contoh sagmen terlalu panjang
+    buat folder file shop dan memberi 
+     ...(titik tiga untuk) ...[slug].tsx
+    dan 
+    tambahkan [[...slug]].tsx (agar slug ya opsional)
+
+   SetUp Layout :
+untuk merapihkan Navbar di folder layouts -> AppShell dan edit di _app.tsx
+
+
+4.Belajar Setting Navigate di folder auth Link :
+    1. Cara ke satu
+   import Link from 'next/link';
+   Belum Punya akun? Registrasi <Link href={"/auth/register"}> disini </Link> 
+   2. Cara ke dua di folder : product/index.tsx
+        kita off kan .eslintrc.json
+        rules{
+
+        }
+
+5. Belajar Styling
+    kita panggil Styling di _app.tsx untuk global kalau kebutuhan ya semua butuh Navbar
+    kalau engga.
+    ada beberapa cara :
+    a. Css dipanggil secara  global
+    b. Css di panggil didalam JS :
+        <p style={{color: "red", paddingTop: "20px"}}> Harus menggunakan Camlcase
+    c. Kita coba menggunakan SASS
+    d. npm i --save-dev sass
+        buat file colors.scss dan import file ya contoh Login.module.scss dan pakai di login.tsx
+    e. Kita bisa menggunakan tailwindcss 
+        instalasi ya :
+        ini kalau using pages router nextjs :
+        https://nextjs.org/docs/pages/building-your-application/styling/tailwind-css
+
+        ini kalau di web tailwindcss :
+        https://tailwindcss.com/docs/guides/nextjs
+
+6. Costum Erro pages dan Document :b
+    a. di file pages/_documents.tsx -> tapi kalau mau edit lebih baik di pages -> index.tsx (ini costum documents).
+        _documents.tsx dipakai diseluruh halaman.
+    
+    b. Membuat costum 404
+        kita ambil gambar dari public dengan menggunakan undraw : 
+        https://undraw.co/search
+        foto di taro fodler umum cara ambil ya di file 404.tsx
+
+7. Belajar API Routes
+    {
+  res.status(200).json({ name: 'Dwi Alwinto', age: 23 })
+    }
+    res.status(200) = ini sukses
+    json = ini datanya json
+
+    b. Belajar koneksi ke firebase
+        instalasi :
+       1. npm install firebase
+
+       2. copy file configurasi ke init.ts
+
+       3. buat database (alwin-next-app) di firebas dan buat documents ya atau database ya
+        rule ya di ganti true
+
+       4. kita sembunyikan koneksi ke firebas dengan membuat file .env.local
+        . dibalik init.ts ke .env.local agar akases database kita aman
+        . export file init.
+        .  setting file services.ts
+        ending kita panggil api di file api/product.ts
+    
+8. Belajar Client-Side-Rendering (load data dulu)
+    contohnya :
+    http://localhost:3000/product/
+    
+    Adalah Pengambilan data eksternal dan trasformasi kode menjadi respresentasi HTML dari sebuah UI terjadi di Client (Client-Side).
+
+    untuk membuat Rupiah :
+    {product.price.toLocaleString('id-ID',{ style: 'currency', currency: 'IDR' })}
+    
+    ini kita coba menggunaka https://swr.vercel.app/
+    sebelum data tampil load dulu.
+    1. npm install swr
+9. Belajar Server Side Rendering (data disiapkan di api jadi di Tampilan tidak load)  
+    HTML akan di generate kemudian HTML, data dan JavaScript akan dikirim ke client saat run time.
+    contohnya :
+    http://localhost:3000/product/server
+
+10. Static Site Generation.
+    HTML akan digenerate di server namun hanya digenerate sekali saat build time, Sehingga content yang ditampilkan bersifat statis.
+    
+11.  revalidate: 10, //auto build tanpa kita harus build ulang sekali build
+    menggunakan kita harus build ulang
+    Sebelum kita revalidate, kita harus mentriger dahulu dengan :
+    http://localhost:3000/api/revalidate?data=product&token=1234 
+    token harus benar sesuai env.local
+
+    setalah itu kita masuk ke link
+    http://localhost:3000/product/static
+    untuk refresh halam agar data yang di tambahkan di firebase keluar
+    ini semua harus di proses build
+Noted : materi 8 sampai 11 in harus bisa proses buil (npm run build)
+
+
+12. Middleware yaitu merunning code sebelum request ya selasi dilakukan.
+    contoh kita masuk ke halaman product kita harus login dulu.
+    buat flie di src :
+    middleware.ts
+    
+    ini kita bisa belajar sistem Login di file middleware.ts
+    dan untuk belajar otenfikasi
+
+13. Kit Setup Next-Auth
+    npm i  next-auth --force
+    https://generate.plus/en/base64 //ini link acak ya 
+
+    kita sementara gunakan :
+    https://next-auth.js.org/providers/credentials
+    
+
+14. Untuk enkrip
+     npm i bcrypt --force
+     npm i --save-dev @types/bcrypt --force
+
+
+15. Login menggunakan providers
+
+16. Login dengan NextAuth.js menggunakan Provider Google
+    https://next-auth.js.org/providers/google
+
+    https://console.developers.google.com/apis/credentials
+
+    https://console.cloud.google.com/apis/credentials?project=my-app-nextjs-400514&supportedpurview=project
+    Client ID : 
+    384439276046-im5kpcaoaorrudv2ak341nskct2hdbd4.apps.googleusercontent.com
+    Client secret :
+    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
+
+17. OPTIMIZATION
+    di project ini :
+    1. Image = ini contoh nya di 404.tsx
+      a. Di file product :
+        index.tsx
+        setting juga di next.config.js
+    2. FONT 
+        biasanya bisa langsung menggunakan link atau import
+        tapi nextjs punya fitur lain menggunakan :
+        NextFont
+        Masuk ke bagian AppShell
+    3. OPTIMIZATION script
+        tags script 
+        kita import di next-script
+        contoh nya di file Navbar
+    4. Next Dynamic
+        contoh import di AppShell -> index
+    5. 
+
+18.  Unit Testing :
+    untuk menjalankan unit testing :
+        1. npm run test (ini hanya di terminal)
+        2. npm run test:cover (ii bisa dengan visual bisa dibuka dibrowser)
+    Kita menggunakan Jest and react Testing Library : 
+    https://nextjs.org/docs/pages/building-your-application/optimizing/testing 
+
+     kita menggunakan cara ke dua : 
+     https://nextjs.org/docs/pages/building-your-application/optimizing/testing#jest-and-react-testing-library
+      ( Next.js Rust Compiler ) kita install ini :
+     1. npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom --force
+     2. Buat file jest.config.mjs :
+        dan copy isi ya file ini :
+     3. Copy ini ke package.json :
+        didalam script ya :
+        "test": "jest --passWithNoTests --u",
+        "test:cover": "npm run test -- --coverage",
+        "test:watch": "jest --watch"
+    4. buat folder di src  :
+       a. folder __test__
+            . pages
+                about.spec.tsx (isi file dengan codingan tersebut)
+
+            . components
+        b. 
+
